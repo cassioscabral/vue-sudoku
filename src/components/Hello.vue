@@ -1,18 +1,35 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1>{{ msg }} {{ msgPlus }}</h1>
+    <input type="text" v-model="msg"/>
+    <button @click="clicou">ok</button>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    msg: {
+      default: 'Hello'
+    }
+  },
   data () {
     return {
       // note: changing this line won't causes changes
       // with hot-reload because the reloaded component
       // preserves its current state and we are modifying
       // its initial state.
-      msg: 'Hello World!'
+      // msg: 'Hello World!'
+    }
+  },
+  computed: {
+    msgPlus () {
+      return this.msg + ' plus'
+    }
+  },
+  methods: {
+    clicou () {
+      console.log('clicou')
     }
   }
 }
