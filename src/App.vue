@@ -1,17 +1,43 @@
 <template>
   <div id="app">
+    <div class="row" v-for="i in 9">
+      <div class="item" v-for="j in 9">
+        <!-- i: {{i}}, j: {{j}} -->
+        <cell :initial-value="seed[i][j]"></cell>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import Cell from './components/Cell'
 
 export default {
+  data () {
+    return {
+      seed: [
+        [8, null, null, 4, null, 6, null, null, 7],
+        [null, null, null, null, null, null, 4, null, null],
+        [null, 1, null, null, null, null, 6, 5, null],
+
+        [5, null, 9, null, 3, null, 7, 8, null],
+        [null, null, null, null, 7, null, null, null, null],
+        [null, 4, 8, null, 2, null, 1, null, 3],
+
+        [null, 5, 2, null, null, null, null, 9, null],
+        [null, null, 1, null, null, null, null, null, null],
+        [3, null, null, 9, null, 2, null, null, 5]
+
+      ]
+    }
+  },
   components: {
+    Cell
   }
 }
 </script>
 
-<style>
+<style lang="scss">
 html {
   height: 100%;
 }
@@ -25,19 +51,31 @@ body {
 
 #app {
   color: #2c3e50;
-  margin-top: -100px;
+  margin-top: 20px;
   max-width: 600px;
   font-family: Source Sans Pro, Helvetica, sans-serif;
   text-align: center;
 }
 
-#app a {
-  color: #42b983;
-  text-decoration: none;
+.row {
+  display: flex;
+  flex-direction: row;
+
+  &:nth-child(3n) {
+    margin-bottom: 3%;
+  }
 }
 
-.logo {
-  width: 100px;
-  height: 100px
+.item {
+
+  &:nth-child(3n) {
+    margin-right: 3%;
+  }
+}
+
+input {
+  width: 40px;
+  height: 40px;
+  font-size: 2rem;
 }
 </style>
