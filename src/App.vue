@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <div class="row" v-for="i in 9">
-      <div class="item" v-for="j in 9">
-        <!-- i: {{i}}, j: {{j}} -->
-        <cell :initial-value="seed[i][j]"></cell>
-      </div>
+      <cell :initial-value="seed[i][j]"
+            v-for="j in 9">
+      </cell>
     </div>
   </div>
 </template>
@@ -64,18 +63,5 @@ body {
   &:nth-child(3n) {
     margin-bottom: 3%;
   }
-}
-
-.item {
-
-  &:nth-child(3n) {
-    margin-right: 3%;
-  }
-}
-
-input {
-  width: 40px;
-  height: 40px;
-  font-size: 2rem;
 }
 </style>
