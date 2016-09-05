@@ -1,11 +1,15 @@
 <template lang="html">
   <div class="item">
     <input
-      v-if="initialValue"
-      type="text" pattern="[1-9]" :value="initialValue" disabled/>
-    <input
-      v-else
-      type="text" pattern="[1-9]" v-model="value"/>
+      type="text" pattern="[1-9]"
+      v-model="value"
+      @change="dispatchUpdateCellValue"
+      :disabled="initialValue"
+      :value="initialValue"
+      :class="{
+        'is-valid': isValid
+      }"
+      />
   </div>
 
 </template>
@@ -16,24 +20,47 @@ export default {
     initialValue: {
       type: Number,
       default: null
+    },
+    // index from 0 to 8
+    column: {
+      type: Number,
+      required: true
+    },
+    // index from 0 to 8
+    row: {
+      type: Number,
+      required: true
+    },
+    value: {
+      type: Number,
+      default: null
+    },
+    isValid: {
+      type: Boolean
     }
   },
   data () {
     return {
-      value: null
     }
   },
   computed: {},
   ready () {},
   attached () {},
-  methods: {},
+  methods: {
+    dispatchUpdateCellValue () {
+      this.$dispatch('updatedCellValue', {
+        value: Number(this.value),
+        column: this.column,
+        row: this.row
+      })
+    }
+  },
   components: {}
 }
 </script>
 
 <style lang="scss">
 .item {
-
   &:nth-child(3n) {
     margin-right: 3%;
   }
@@ -46,6 +73,11 @@ export default {
     display: inline-block;
     border: 1px solid #e1e1e1;
     padding: 0;
+    background-color: red;
+
+    &.is-valid {
+      background-color: transparent;
+    }
 
     &[disabled] {
       background-color: #e3e3e3;
